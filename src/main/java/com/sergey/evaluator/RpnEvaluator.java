@@ -1,17 +1,19 @@
 package com.sergey.evaluator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class RpnEvaluator {
 
     /**
-     * Вычисляет значение выражения, представленного в виде ОПН.
-     * @param rpnTokens Список токенов в ОПН.
-     * @return Результат вычисления (double).
-     * @throws IllegalArgumentException если выражение некорректно (например, не хватает операндов).
+     * Вычисляет значение выражения, представленного в виде ОПН
+     * @param rpnTokens Список токенов в ОПН
+     * @param variables Словарь с именами и значениями переменных
+     * @return Результат вычисления (double)
+     * @throws IllegalArgumentException если выражение некорректно (например, не хватает операндов)
      */
-    public double evaluate(List<Token> rpnTokens) {
+    public double evaluate(List<Token> rpnTokens, Map<String, Double> variables) {
         Stack<Double> stack = new Stack<>();
 
         for (Token token : rpnTokens) {
@@ -33,7 +35,16 @@ public class RpnEvaluator {
                     stack.push(result);
                     break;
 
-                // TODO: Добавить обработку переменных и функций
+                // Добавляем обработку переменных
+                case VARIABLE:
+                    String varName = token.value;
+                    if (!variables.containsKey(varName)) {
+                        throw new IllegalArgumentException("Не найдено значение для переменной: " + varName);
+                    }
+                    // Берем значение из карты и кладем в стек
+                    stack.push(variables.get(varName));
+                    break;
+
                 default:
                     throw new IllegalArgumentException("Неподдерживаемый тип токена в ОПН: " + token.type);
             }

@@ -1,35 +1,61 @@
 package com.sergey.evaluator;
 
-import java.util.List;
+import java.util.*; // Импортируем всё необходимое
 
 public class Main {
     public static void main(String[] args) {
-        // Создаем экземпляры всех наших компонентов
         ExpressionTokenizer tokenizer = new ExpressionTokenizer();
         ExpressionParser parser = new ExpressionParser();
         RpnEvaluator evaluator = new RpnEvaluator();
 
-        String expression = "3 + 4 * 2 / ( 1 - 5 ) ^ 2";
+        // Возьмем выражение с переменными
+        String expression = "x * (y + 2) / z";
 
         try {
             System.out.println("Исходное выражение: " + expression);
 
-            // Шаг 1: Токенизация (Строка -> Список токенов)
+            // Шаг 1: Токенизация
             List<Token> tokens = tokenizer.tokenize(expression);
             System.out.println("Токены: " + tokens);
 
-            // Шаг 2: Парсинг (Токены -> ОПН)
+            // НОВЫЙ ШАГ 1.5: Ищем переменные и запрашиваем их значения
+            // Используем Set, чтобы хранить только уникальные имена переменных
+            Set<String> variableNames = new HashSet<>();
+            for (Token token : tokens) {
+                if (token.type == TokenType.VARIABLE) {
+                    variableNames.add(token.value);
+                }
+            }
+
+            // Создаем карту для хранения значений: Имя -> Значение
+            Map<String, Double> variables = new HashMap<>();
+            if (!variableNames.isEmpty()) {
+                System.out.println("=================================================");
+                System.out.println("Найдены переменные. Пожалуйста, введите их значения:");
+                // Scanner - это стандартный класс Java для чтения ввода с клавиатуры
+                Scanner scanner = new Scanner(System.in);
+                for (String varName : variableNames) {
+                    System.out.print(varName + " = ");
+                    try {
+                        double value = scanner.nextDouble();
+                        variables.put(varName, value);
+                    } catch (InputMismatchException e) {
+                        System.err.println("ОШИБКА: Введено не число. Завершение работы.");
+                        return; // Выходим из программы при ошибке ввода
+                    }
+                }
+                System.out.println("=================================================");
+            }
+
+            // Шаг 2: Парсинг в ОПН
             List<Token> rpn = parser.parse(tokens);
             System.out.println("ОПН: " + rpn);
 
-            // Шаг 3: Вычисление (ОПН -> Результат)
-            double result = evaluator.evaluate(rpn);
-            System.out.println("======================");
+            // Шаг 3: Вычисление (теперь передаем карту с переменными)
+            double result = evaluator.evaluate(rpn, variables);
             System.out.println("Результат: " + result);
-            System.out.println("======================");
 
         } catch (Exception e) {
-            // Ловим все возможные ошибки: некорректный символ, скобки, деление на ноль и т.д.
             System.err.println("ОШИБКА: " + e.getMessage());
         }
     }
