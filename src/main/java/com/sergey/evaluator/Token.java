@@ -1,8 +1,8 @@
 package com.sergey.evaluator;
 
 /**
- * Представляет одну лексему (токен) в математическом выражении.
- * Является неизменяемым объектом.
+ * Представляет одну лексему (токен) в математическом выражении
+ * Является неизменяемым объектом
  */
 public class Token {
     /** Тип токена (число, оператор и др) */
@@ -11,9 +11,9 @@ public class Token {
     public final String value;
 
     /**
-     * Создает новый токен.
-     * @param type тип токена.
-     * @param value строковое значение токена.
+     * Создает новый токен
+     * @param type тип токена
+     * @param value строковое значение токена
      */
     public Token(TokenType type, String value) {
         this.type = type;
