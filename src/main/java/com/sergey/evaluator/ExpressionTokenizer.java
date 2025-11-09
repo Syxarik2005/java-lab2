@@ -2,6 +2,7 @@ package com.sergey.evaluator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ExpressionTokenizer {
 
@@ -11,6 +12,8 @@ public class ExpressionTokenizer {
      * @return Список токенов.
      * @throws IllegalArgumentException если в выражении есть недопустимые символы.
      */
+    private static final Set<String> KNOWN_FUNCTIONS = Set.of("sin", "cos", "tan", "sqrt", "abs");
+
     public List<Token> tokenize(String expression) {
         List<Token> tokens = new ArrayList<>();
         int position = 0; // Наша текущая позиция в строке
@@ -36,8 +39,14 @@ public class ExpressionTokenizer {
                     name.append(expression.charAt(position));
                     position++;
                 }
-                // TODO: В будущем здесь нужно будет отличать функции от переменных
-                tokens.add(new Token(TokenType.VARIABLE, name.toString()));
+                String nameStr = name.toString();
+
+                // Проверяем, является ли прочитанное слово функцией
+                if (KNOWN_FUNCTIONS.contains(nameStr)) {
+                    tokens.add(new Token(TokenType.FUNCTION, nameStr));
+                } else {
+                    tokens.add(new Token(TokenType.VARIABLE, nameStr));
+                }
                 continue;
             }
 

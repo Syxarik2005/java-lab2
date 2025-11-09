@@ -45,6 +45,16 @@ public class RpnEvaluator {
                     stack.push(variables.get(varName));
                     break;
 
+                // Добавляем обработку функций
+                case FUNCTION:
+                    if (stack.isEmpty()) {
+                        throw new IllegalArgumentException("Ошибка в выражении: не хватает операндов для функции " + token.value);
+                    }
+                    double arg = stack.pop(); // Берем один аргумент из стека
+                    double functionResult = performFunction(token.value, arg);
+                    stack.push(functionResult); // Кладем результат обратно
+                    break;
+
                 default:
                     throw new IllegalArgumentException("Неподдерживаемый тип токена в ОПН: " + token.type);
             }
@@ -75,6 +85,27 @@ public class RpnEvaluator {
                 return Math.pow(a, b);
             default:
                 throw new IllegalArgumentException("Неизвестный оператор: " + operator);
+        }
+    }
+
+    // метод для выполнения функций
+    private double performFunction(String functionName, double arg) {
+        switch (functionName) {
+            case "sin":
+                return Math.sin(Math.toRadians(arg)); // Math.sin работает с радианами, а люди вводят градусы
+            case "cos":
+                return Math.cos(Math.toRadians(arg));
+            case "tan":
+                return Math.tan(Math.toRadians(arg));
+            case "sqrt":
+                if (arg < 0) {
+                    throw new ArithmeticException("Нельзя извлечь корень из отрицательного числа.");
+                }
+                return Math.sqrt(arg);
+            case "abs":
+                return Math.abs(arg);
+            default:
+                throw new IllegalArgumentException("Неизвестная функция: " + functionName);
         }
     }
 }

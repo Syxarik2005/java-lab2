@@ -8,8 +8,8 @@ public class Main {
         ExpressionParser parser = new ExpressionParser();
         RpnEvaluator evaluator = new RpnEvaluator();
 
-        // Возьмем выражение с переменными
-        String expression = "x * (y + 2) / z";
+        // Новое выражение для теста
+        String expression = "sqrt(x) + abs(y) * sin(90)";
 
         try {
             System.out.println("Исходное выражение: " + expression);
@@ -18,7 +18,7 @@ public class Main {
             List<Token> tokens = tokenizer.tokenize(expression);
             System.out.println("Токены: " + tokens);
 
-            // НОВЫЙ ШАГ 1.5: Ищем переменные и запрашиваем их значения
+            // Ищем переменные и запрашиваем их значения
             // Используем Set, чтобы хранить только уникальные имена переменных
             Set<String> variableNames = new HashSet<>();
             for (Token token : tokens) {
@@ -32,7 +32,6 @@ public class Main {
             if (!variableNames.isEmpty()) {
                 System.out.println("=================================================");
                 System.out.println("Найдены переменные. Пожалуйста, введите их значения:");
-                // Scanner - это стандартный класс Java для чтения ввода с клавиатуры
                 Scanner scanner = new Scanner(System.in);
                 for (String varName : variableNames) {
                     System.out.print(varName + " = ");
@@ -41,7 +40,7 @@ public class Main {
                         variables.put(varName, value);
                     } catch (InputMismatchException e) {
                         System.err.println("ОШИБКА: Введено не число. Завершение работы.");
-                        return; // Выходим из программы при ошибке ввода
+                        return;
                     }
                 }
                 System.out.println("=================================================");
