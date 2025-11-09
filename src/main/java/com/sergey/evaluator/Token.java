@@ -1,9 +1,20 @@
 package com.sergey.evaluator;
 
+/**
+ * Представляет одну лексему (токен) в математическом выражении.
+ * Является неизменяемым объектом.
+ */
 public class Token {
-    public final TokenType type; // Тип токена
-    public final String value;   // Строковое представление, например, "3.14", "+", "x"
+    /** Тип токена (число, оператор и др) */
+    public final TokenType type;
+    /** Строковое значение токена, например, "3.14", "+", "x" */
+    public final String value;
 
+    /**
+     * Создает новый токен.
+     * @param type тип токена.
+     * @param value строковое значение токена.
+     */
     public Token(TokenType type, String value) {
         this.type = type;
         this.value = value;

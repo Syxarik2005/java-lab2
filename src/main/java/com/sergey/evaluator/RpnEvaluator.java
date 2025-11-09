@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+/**
+ * Калькулятор, который принимает на вход выражение в Обратной Польской Нотации (ОПН)
+ * и вычисляет его конечное значение.
+ */
 public class RpnEvaluator {
 
     /**
@@ -12,6 +16,7 @@ public class RpnEvaluator {
      * @param variables Словарь с именами и значениями переменных
      * @return Результат вычисления (double)
      * @throws IllegalArgumentException если выражение некорректно (например, не хватает операндов)
+     * @throws ArithmeticException при математических ошибках (например, деление на ноль)
      */
     public double evaluate(List<Token> rpnTokens, Map<String, Double> variables) {
         Stack<Double> stack = new Stack<>();
@@ -68,6 +73,13 @@ public class RpnEvaluator {
         return stack.pop();
     }
 
+    /**
+     * Выполняет бинарную математическую операцию
+     * @param operator оператор (+, -, *, /, ^)
+     * @param a первый операнд
+     * @param b второй операнд
+     * @return результат операции
+     */
     private double performOperation(String operator, double a, double b) {
         switch (operator) {
             case "+":
@@ -88,7 +100,12 @@ public class RpnEvaluator {
         }
     }
 
-    // метод для выполнения функций
+    /**
+     * Выполняет унарную математическую функцию
+     * @param functionName имя функции (sin, cos, sqrt и т.д)
+     * @param arg аргумент функции
+     * @return результат функции
+     */
     private double performFunction(String functionName, double arg) {
         switch (functionName) {
             case "sin":

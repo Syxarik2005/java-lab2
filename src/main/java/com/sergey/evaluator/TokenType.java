@@ -1,10 +1,19 @@
 package com.sergey.evaluator;
 
+/**
+ * Определяет типы лексем (токенов), на которые разбивается математическое выражение
+ */
 public enum TokenType {
-    NUMBER, // число (3.14)
-    OPERATOR, // +,-,*,/
-    VARIABLE, // x
-    FUNCTION, // sin
-    LEFT_PAREN, // (
-    RIGHT_PAREN // )
+    /** Число, например, 3.14 или 42 */
+    NUMBER,
+    /** Оператор, например, +, *, / */
+    OPERATOR,
+    /** Переменная, например, x, myVar */
+    VARIABLE,
+    /** Функция, например, sin, sqrt */
+    FUNCTION,
+    /** Левая (открывающая) скобка */
+    LEFT_PAREN,
+    /** Правая (закрывающая) скобка */
+    RIGHT_PAREN
 }

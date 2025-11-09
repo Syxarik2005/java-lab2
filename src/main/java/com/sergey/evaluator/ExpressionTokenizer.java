@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Лексический анализатор (токенизатор), который разбивает строку
+ * с математическим выражением на список токенов.
+ */
 public class ExpressionTokenizer {
 
-    /**
-     * Преобразует строку с математическим выражением в список токенов.
-     * @param expression Входная строка Пример: 3 + 4 * (2 - 1)
-     * @return Список токенов.
-     * @throws IllegalArgumentException если в выражении есть недопустимые символы.
-     */
+    /** Набор известных функций для их отличия от переменных. */
     private static final Set<String> KNOWN_FUNCTIONS = Set.of("sin", "cos", "tan", "sqrt", "abs");
 
+    /**
+     * Преобразует строку с математическим выражением в список токенов
+     * @param expression Входная строка Пример: 3 + 4 * (2 - 1)
+     * @return Список токенов
+     * @throws IllegalArgumentException если в выражении есть недопустимые символы
+     */
     public List<Token> tokenize(String expression) {
         List<Token> tokens = new ArrayList<>();
         int position = 0; // Наша текущая позиция в строке
