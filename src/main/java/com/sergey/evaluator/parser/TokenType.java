@@ -1,4 +1,4 @@
-package com.sergey.evaluator;
+package com.sergey.evaluator.parser;
 
 /**
  * Определяет типы лексем (токенов), на которые разбивается математическое выражение

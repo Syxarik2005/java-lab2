@@ -1,4 +1,4 @@
-package com.sergey.evaluator;
+package com.sergey.evaluator.parser;
 
 import org.junit.jupiter.api.Test;
 import java.util.List;

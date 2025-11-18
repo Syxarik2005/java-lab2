@@ -24,6 +24,36 @@
 *   Maven - для управления зависимостями и сборкой проекта
 *   JUnit 5 - для модульного тестирования
 
+## Структура проекта
+
+```expression-evaluator/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── com/
+│   │           └── sergey/
+│   │               ├── Main.java              # Главный класс для запуска
+│   │               ├── calculator/
+│   │               │   └── RpnEvaluator.java  # Логика вычисления ОПН
+│   │               └── parser/
+│   │                   ├── ExpressionParser.java
+│   │                   ├── ExpressionTokenizer.java
+│   │                   ├── Token.java
+│   │                   └── TokenType.java
+│   └── test/
+│       └── java/
+│           └── com/
+│               └── sergey/
+│                   ├── calculator/
+│                   │   └── RpnEvaluatorTest.java
+│                   └── parser/
+│                       └── ExpressionParserTest.java
+│                       └── ExpressionTokenizerTest.java
+├── .gitignore
+├── pom.xml
+└── README.md
+```
+
 ## Как собрать и протестировать проект
 
 Для работы с проектом вам понадобится установленный JDK и Maven.

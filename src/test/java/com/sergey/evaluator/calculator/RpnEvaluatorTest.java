@@ -1,5 +1,8 @@
-package com.sergey.evaluator;
+package com.sergey.evaluator.calculator;
 
+import com.sergey.evaluator.parser.ExpressionParser;
+import com.sergey.evaluator.parser.ExpressionTokenizer;
+import com.sergey.evaluator.parser.Token;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;

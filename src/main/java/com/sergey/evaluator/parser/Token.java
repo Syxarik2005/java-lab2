@@ -1,4 +1,4 @@
-package com.sergey.evaluator;
+package com.sergey.evaluator.parser;
 
 /**
  * Представляет одну лексему (токен) в математическом выражении

@@ -1,4 +1,4 @@
-package com.sergey.evaluator;
+package com.sergey.evaluator.parser;
 
 import java.util.ArrayList;
 import java.util.List;
